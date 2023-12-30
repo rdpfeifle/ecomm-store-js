@@ -26,3 +26,9 @@ a {
   position: sticky;
   top: 0;
 }
+
+@media (max-width: 768px) {
+  #promo-bar {
+    background-color: #cb3b4c;
+  }
+}
