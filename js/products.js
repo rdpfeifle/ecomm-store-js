@@ -24,16 +24,24 @@ export const showProducts = async () => {
 
   // extract id, title, price, category, and image
   const productsHTML = products
-    .map(
-      (product) => `
-    <div data-id="${product.id}" class="product-container">
-        <img src="${product.image}" alt="${product.title}" class="product-image" />
-        <h3 class="product-title">${product.title}</h3>
-        <p class="product-category">${product.category}</p>
-        <p class="product-price">$${product.price}</p>
+    .map((product) => {
+      const { id, image, title, price } = product;
+
+      const category =
+        product.category === "jewelery" ? "jewelry" : product.category;
+
+      return `
+    <div data-id="${id}" class="product-container">
+        <div class="img-container">
+          <img src="${image}" alt="${title}" class="product-image" />
+        </div>
+        <h3 class="product-title">${title}</h3>
+        <p class="product-category">${category}</p>
+        <p class="product-price">$${price}</p>
+        <button class="add-to-cart">Add to Cart</button>
     </div>
-  `
-    )
+  `;
+    })
     .join("");
 
   productsContainerEl.innerHTML = productsHTML;
