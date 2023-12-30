@@ -29,6 +29,6 @@ a {
 
 @media (max-width: 768px) {
   #promo-bar {
-    background-color: #cb3b4c;
+    display: none;
   }
 }
