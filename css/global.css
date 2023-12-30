@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body,
@@ -15,4 +16,13 @@ li {
 
 a {
   text-decoration: none;
+}
+
+#promo-bar {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  position: sticky;
+  top: 0;
 }
