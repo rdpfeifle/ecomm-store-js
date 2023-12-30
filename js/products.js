@@ -22,7 +22,6 @@ export const filterCategories = () => {
 export const showProducts = async () => {
   const products = await fetchProducts();
 
-  // extract id, title, price, category, and image
   const productsHTML = products
     .map((product) => {
       const { id, image, title, price } = product;
