@@ -1,7 +1,7 @@
 {
   "name": "ecomm-vanilla-js",
   "version": "1.0.0",
-  "description": "An e-commerce created using HTML, Sass, and Vanilla JS",
+  "description": "An e-commerce created using HTML, CSS, and Vanilla JS",
   "main": "index.js",
   "scripts": {
     "cy:open": "cypress open"
