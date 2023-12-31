@@ -1,6 +1,15 @@
+import { createElementWithClass, appendChildren } from "./helpers.js";
+
 const productsCategory = document.getElementById("categories-filter");
 const productsContainerEl = document.getElementById("products-container");
 
+// add objects containing the id, title, quantity, price, total for each
+// let productsInCart = [];
+
+/**
+ * Fetch and filter products from an API based on specific categories.
+ * @returns {Promise<Array>} - A promise that resolves to an array of filtered products.
+ */
 const fetchProducts = async () => {
   const products = await fetch("https://fakestoreapi.com/products").then(
     (res) => res.json()
@@ -14,34 +23,74 @@ const fetchProducts = async () => {
   return filteredProducts;
 };
 
-export const filterCategories = () => {
+// Store the fetched products to reuse them in different functions.
+const PRODUCTS = await fetchProducts();
+
+const filterCategories = () => {
   // display categories "All", "Women's Clothing" and "Jewelry"
   // filter the products
 };
 
-export const showProducts = async () => {
-  const products = await fetchProducts();
+/**
+ * Populates the UI with product elements based on fetched data.
+ * Utilizes helper functions from helpers.js for creating and appending elements.
+ * For more details on the helper functions, refer to the helpers.js file.
+ * @returns {void}
+ */
+const showProducts = async () => {
+  PRODUCTS.forEach((product) => {
+    const { id, image, title, price } = product;
+    const category =
+      product.category === "jewelery" ? "jewelry" : product.category;
 
-  const productsHTML = products
-    .map((product) => {
-      const { id, image, title, price } = product;
+    const productContainer = createElementWithClass("div", "product-container");
+    productContainer.dataset.id = id;
 
-      const category =
-        product.category === "jewelery" ? "jewelry" : product.category;
+    const imgContainer = createElementWithClass("div", "img-container");
+    const productImg = createElementWithClass("img", "product-image");
+    productImg.src = image;
+    productImg.alt = title;
+    imgContainer.appendChild(productImg);
 
-      return `
-    <div data-id="${id}" class="product-container">
-        <div class="img-container">
-          <img src="${image}" alt="${title}" class="product-image" />
-        </div>
-        <h3 class="product-title">${title}</h3>
-        <p class="product-category">${category}</p>
-        <p class="product-price">$${price}</p>
-        <button class="add-to-cart">Add to Cart</button>
-    </div>
-  `;
-    })
-    .join("");
+    const productTitle = createElementWithClass("h3", "product-title");
+    productTitle.textContent = title;
 
-  productsContainerEl.innerHTML = productsHTML;
+    const productCategory = createElementWithClass("p", "product-category");
+    productCategory.textContent = category;
+
+    const productPrice = createElementWithClass("p", "product-price");
+    productPrice.textContent = `$${price}`;
+
+    const quantityContainer = createElementWithClass(
+      "div",
+      "quantity-container"
+    );
+    const decrementBtn = createElementWithClass("button", "decrement-btn");
+    decrementBtn.textContent = "-";
+    const quantityCounter = createElementWithClass("div", "qty-counter");
+    const incrementBtn = createElementWithClass("button", "increment-btn");
+    incrementBtn.textContent = "+";
+
+    const addToCartBtn = createElementWithClass("button", "add-to-cart");
+    addToCartBtn.textContent = "Add to Cart";
+
+    appendChildren(quantityContainer, [
+      decrementBtn,
+      quantityCounter,
+      incrementBtn,
+    ]);
+
+    appendChildren(productContainer, [
+      imgContainer,
+      productTitle,
+      productCategory,
+      productPrice,
+      quantityContainer,
+      addToCartBtn,
+    ]);
+
+    appendChildren(productsContainerEl, [productContainer]);
+  });
 };
+
+showProducts();
