@@ -9,7 +9,7 @@
 
 nav {
   display: flex;
-  gap: 50px;
+  gap: 80px;
 }
 
 nav a:hover {
