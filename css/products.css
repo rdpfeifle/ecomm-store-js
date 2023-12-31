@@ -6,6 +6,35 @@
   text-align: center;
 }
 
+#categories-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#all,
+#women,
+#jewelry {
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 5px;
+  margin: 20px 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: transparent;
+  transition: border-color 200ms ease-in-out;
+}
+
+#all:hover,
+#women:hover,
+#jewelry:hover,
+#all:focus,
+#women:focus,
+#jewelry:focus {
+  border-color: #cb3b4c;
+}
+
 #products-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -33,7 +62,7 @@
   margin: 10px 0;
 }
 
-.img-container img {
+.img-container .product-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
