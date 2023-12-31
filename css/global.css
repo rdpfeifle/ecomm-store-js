@@ -1,3 +1,6 @@
+@import "./products.css";
+@import "./header.css";
+
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -17,6 +20,7 @@ li {
 
 a {
   text-decoration: none;
+  color: #000;
 }
 
 #promo-bar {
