@@ -1,5 +1,6 @@
 @import "./products.css";
 @import "./header.css";
+@import "./newsletter.css";
 
 * {
   box-sizing: border-box;
