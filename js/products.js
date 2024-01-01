@@ -1,13 +1,11 @@
 import { fetchProducts } from "./api.js";
 import { createElementWithClass, appendChildren } from "./helpers.js";
+import { addToCart, updateCartQuantity } from "./cart.js";
 
 const categoryAll = document.getElementById("all");
 const womenCategory = document.getElementById("women");
 const jewelryCategory = document.getElementById("jewelry");
 const productsContainerEl = document.getElementById("products-container");
-
-// add objects containing the id, title, quantity, price, total for each
-// let productsInCart = [];
 
 // Store the fetched products to reuse them in different functions.
 const PRODUCTS = await fetchProducts();
@@ -40,7 +38,10 @@ const toggleQuantityDisplay = (
  */
 const incrementQuantity = (quantityCounter) => {
   let quantity = parseInt(quantityCounter.textContent, 10);
-  quantityCounter.textContent = quantity + 1;
+  quantity++;
+  quantityCounter.textContent = quantity;
+
+  return quantity;
 };
 
 /**
@@ -61,12 +62,16 @@ const decrementQuantity = (
   let quantity = parseInt(quantityCounter.textContent, 10);
 
   if (quantity > 1) {
-    quantityCounter.textContent = quantity - 1;
+    quantity--;
+    quantityCounter.textContent = quantity;
   } else {
+    quantity = 0;
     quantityCounter.textContent = "";
     addToCartBtn.style.display = "block";
     quantityContainer.style.display = "none";
   }
+
+  return quantity;
 };
 
 /**
@@ -138,15 +143,30 @@ const filterProductsBy = async (category) => {
 
     appendChildren(productsContainerEl, [productContainer]);
 
-    addToCartBtn.addEventListener("click", () =>
-      toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter)
-    );
-    incrementBtn.addEventListener("click", () =>
-      incrementQuantity(quantityCounter)
-    );
-    decrementBtn.addEventListener("click", () =>
-      decrementQuantity(addToCartBtn, quantityContainer, quantityCounter)
-    );
+    addToCartBtn.addEventListener("click", () => {
+      addToCart(product);
+      toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter);
+    });
+
+    incrementBtn.addEventListener("click", () => {
+      // update the UI and get the new quantity
+      const newQuantity = incrementQuantity(quantityCounter);
+
+      // update the cart
+      updateCartQuantity(id, newQuantity);
+    });
+
+    decrementBtn.addEventListener("click", () => {
+      // update the UI and get the new quantity
+      const newQuantity = decrementQuantity(
+        addToCartBtn,
+        quantityContainer,
+        quantityCounter
+      );
+
+      // update the cart
+      updateCartQuantity(id, newQuantity);
+    });
   });
 };
 
