@@ -24,7 +24,6 @@
   font-weight: 500;
   background-color: transparent;
   transition: border-color 200ms ease-in-out;
-  color: #000;
 }
 
 #all:hover,

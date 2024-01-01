@@ -31,6 +31,11 @@ nav a:hover {
 }
 
 @media (max-width: 768px) {
+  header {
+    top: 0;
+    z-index: 10;
+  }
+
   nav a {
     display: none;
   }
