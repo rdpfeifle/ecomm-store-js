@@ -1,3 +1,4 @@
+import { fetchProducts } from "./api.js";
 import { createElementWithClass, appendChildren } from "./helpers.js";
 
 const categoryAll = document.getElementById("all");
@@ -8,25 +9,64 @@ const productsContainerEl = document.getElementById("products-container");
 // add objects containing the id, title, quantity, price, total for each
 // let productsInCart = [];
 
-/**
- * Fetch and filter products from an API based on specific categories.
- * @returns {Promise<Array>} - A promise that resolves to an array of filtered products.
- */
-const fetchProducts = async () => {
-  const products = await fetch("https://fakestoreapi.com/products").then(
-    (res) => res.json()
-  );
-
-  const filteredByTwoCategories = products.filter(
-    (product) =>
-      product.category === "jewelery" || product.category === "women's clothing"
-  );
-
-  return filteredByTwoCategories;
-};
-
 // Store the fetched products to reuse them in different functions.
 const PRODUCTS = await fetchProducts();
+
+/**
+ * Toggles the display of the `.quantity-container` and the add-to-cart button.
+ * When invoked, it sets the quantity counter to 1, hides the add-to-cart button, and displays the `.quantity-container` which includes the
+ * decrement and increment buttons and the quantity display.
+ * @param {Element} addToCartBtn - The `.add-to-cart` button element.
+ * @param {Element} quantityContainer - The '.quantity-container' element for quantity display.
+ * @param {Element} quantityCounter - The element that displays the quantity.
+ */
+const toggleQuantityDisplay = (
+  addToCartBtn,
+  quantityContainer,
+  quantityCounter
+) => {
+  quantityCounter.textContent = 1;
+  addToCartBtn.style.display = "none";
+  quantityContainer.style.display = "flex";
+};
+
+/**
+ * Increments the quantity displayed in the quantity counter.
+ * This function parses the current quantity as an integer,
+ * increments it by one, and updates the text content of the
+ * quantity counter within the '.quantity-container'.
+ * @param {Element} quantityCounter - The element within '.quantity-container' that displays the quantity.
+ */
+const incrementQuantity = (quantityCounter) => {
+  let quantity = parseInt(quantityCounter.textContent, 10);
+  quantityCounter.textContent = quantity + 1;
+};
+
+/**
+ * Decrements the quantity displayed in the quantity counter.
+ * If the quantity is greater than 1, it decrements it by one.
+ * If the quantity reaches 1, this function resets the counter,
+ * hides the '.quantity-container', and shows the add-to-cart button.
+ *
+ * @param {Element} addToCartBtn - The `.add-to-cart` button element.
+ * @param {Element} quantityContainer - The '.quantity-container' element for quantity display.
+ * @param {Element} quantityCounter - The element within '.quantity-container' that displays the quantity.
+ */
+const decrementQuantity = (
+  addToCartBtn,
+  quantityContainer,
+  quantityCounter
+) => {
+  let quantity = parseInt(quantityCounter.textContent, 10);
+
+  if (quantity > 1) {
+    quantityCounter.textContent = quantity - 1;
+  } else {
+    quantityCounter.textContent = "";
+    addToCartBtn.style.display = "block";
+    quantityContainer.style.display = "none";
+  }
+};
 
 /**
  * Populates the UI with filtered product elements based on fetched data.
@@ -68,6 +108,7 @@ const filterProductsBy = async (category) => {
       "div",
       "quantity-container"
     );
+    const quantityWrapper = createElementWithClass("div", "quantity-wrapper");
     const decrementBtn = createElementWithClass("button", "decrement-btn");
     decrementBtn.textContent = "-";
     const quantityCounter = createElementWithClass("div", "qty-counter");
@@ -77,11 +118,13 @@ const filterProductsBy = async (category) => {
     const addToCartBtn = createElementWithClass("button", "add-to-cart");
     addToCartBtn.textContent = "Add to Cart";
 
-    appendChildren(quantityContainer, [
+    appendChildren(quantityWrapper, [
       decrementBtn,
       quantityCounter,
       incrementBtn,
     ]);
+
+    quantityContainer.appendChild(quantityWrapper);
 
     appendChildren(productContainer, [
       imgContainer,
@@ -93,6 +136,16 @@ const filterProductsBy = async (category) => {
     ]);
 
     appendChildren(productsContainerEl, [productContainer]);
+
+    addToCartBtn.addEventListener("click", () =>
+      toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter)
+    );
+    incrementBtn.addEventListener("click", () =>
+      incrementQuantity(quantityCounter)
+    );
+    decrementBtn.addEventListener("click", () =>
+      decrementQuantity(addToCartBtn, quantityContainer, quantityCounter)
+    );
   });
 };
 
