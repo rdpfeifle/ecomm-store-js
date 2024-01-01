@@ -95,6 +95,35 @@ product-title {
   background-color: #cd2c40;
 }
 
+.quantity-container {
+  display: none;
+  justify-content: center;
+}
+
+.quantity-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #cd2c40;
+  border-radius: 5px;
+}
+
+.decrement-btn,
+.increment-btn {
+  border: none;
+  cursor: pointer;
+  background-color: #cd2c40;
+  border-radius: 2px;
+  color: #fff;
+  margin: 0;
+  padding: 8px 15px;
+}
+
+.qty-counter {
+  background-color: #fff;
+  margin: 0 5px;
+}
+
 @media (max-width: 1200px) {
   #products-container {
     grid-template-columns: repeat(3, 1fr);
