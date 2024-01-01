@@ -13,8 +13,9 @@ const productsContainerEl = document.getElementById("products-container");
 const PRODUCTS = await fetchProducts();
 
 /**
- * Toggles the display of the `.quantity-container` and the add-to-cart button.
- * When invoked, it sets the quantity counter to 1, hides the add-to-cart button, and displays the `.quantity-container` which includes the
+ * Toggles the display of the `.quantity-container` and the `.add-to-cart` button.
+ * When invoked, it sets the quantity counter to 1, hides the `.add-to-cart`
+ * button, and displays the `.quantity-container` which includes the
  * decrement and increment buttons and the quantity display.
  * @param {Element} addToCartBtn - The `.add-to-cart` button element.
  * @param {Element} quantityContainer - The '.quantity-container' element for quantity display.
