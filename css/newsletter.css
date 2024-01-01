@@ -1,0 +1,55 @@
+#newsletter {
+  background-color: #ffdee248;
+}
+
+.newsletter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
+}
+
+.newsletter-container h3 {
+  font-size: 1.3rem;
+}
+
+.newsletter-container p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+form input {
+  padding: 12px 50px;
+  text-align: center;
+}
+
+form input,
+form button {
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+form button {
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  text-transform: capitalize;
+  transition: background-color 0.3s ease-in-out;
+  padding: 12px 20px;
+}
+
+form button:hover {
+  background-color: #cd2c40;
+}
+
+@media (max-width: 768px) {
+  .newsletter-container form {
+    text-align: center;
+  }
+
+  form input {
+    margin-bottom: 10px;
+  }
+}
