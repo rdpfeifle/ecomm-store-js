@@ -4,7 +4,7 @@
  * @param {string} className - The class to add to the created element.
  * @returns {HTMLElement} - The created HTML element with the specified class.
  */
-export const createElementWithClass = (elementType, className) => {
+const createElementWithClass = (elementType, className) => {
   const element = document.createElement(elementType);
   element.classList.add(className);
 
@@ -16,8 +16,10 @@ export const createElementWithClass = (elementType, className) => {
  * @param {HTMLElement} parent - The parent element to which children will be appended.
  * @param {Array<HTMLElement>} children - An array of child elements to append to the parent.
  */
-export const appendChildren = (parent, children) => {
+const appendChildren = (parent, children) => {
   children.forEach((child) => {
     parent.appendChild(child);
   });
 };
+
+export { createElementWithClass, appendChildren };
