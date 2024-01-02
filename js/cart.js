@@ -40,6 +40,7 @@ const updateCartCountUI = () => {
  * other details such as `title` and `price`.
  * @returns {void}
  */
+
 const addToCart = (product) => {
   const productIndex = findProductIndexInCart(product.id);
 
@@ -99,18 +100,21 @@ const updateCartModal = () => {
     cartItemsContainer.appendChild(emptyCartMessage);
   } else {
     cart.forEach((item) => {
-      const { id, title, image, price, qtyInCart } = item;
+      const { id, title, category, image, price, qtyInCart } = item;
       const itemContainer = createElementWithClass("div", "cart-item");
 
+      const itemTitle = createElementWithClass("h5", "cart-item-title");
+      itemTitle.textContent = title;
+
+      const itemCategory = createElementWithClass("p", "cart-item-category");
+      itemCategory.textContent = category === "jewelery" ? "jewelry" : category;
+
       const imgContainer = createElementWithClass("div", "cart-img-container");
-      const itemImg = createElementWithClass("img", ".cart-item-img");
+      const itemImg = createElementWithClass("img", "cart-item-img");
       itemImg.src = image;
       itemImg.alt = title;
 
       imgContainer.appendChild(itemImg);
-
-      const itemTitle = createElementWithClass("h5", "cart-item-title");
-      itemTitle.textContent = title;
 
       const itemPrice = createElementWithClass("p", "cart-item-price");
       itemPrice.textContent = `$${price * qtyInCart}`;
@@ -129,18 +133,25 @@ const updateCartModal = () => {
       );
       incrementBtn.textContent = "+";
 
+      const itemDetailsContainer = createElementWithClass(
+        "div",
+        "item-details-container"
+      );
+
       appendChildren(itemQtyWrapper, [
         decrementBtn,
         itemQuantity,
         incrementBtn,
       ]);
 
-      appendChildren(itemContainer, [
-        imgContainer,
+      appendChildren(itemDetailsContainer, [
         itemTitle,
+        itemCategory,
         itemPrice,
         itemQtyWrapper,
       ]);
+
+      appendChildren(itemContainer, [imgContainer, itemDetailsContainer]);
 
       cartItemsContainer.appendChild(itemContainer);
 
