@@ -83,12 +83,17 @@ const calculateTotal = () => {
   return;
 };
 
+/**
+ * Updates and displays the content of the cart modal.
+ * Clears existing content and populates with current cart items.
+ * Shows each item with its details.
+ * Displays a message if the cart is empty.
+ * @returns {void} - primarily updates the UI.
+ */
 const updateCartModal = () => {
-  // Clear the current contents of the cart items
   cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    // If the cart is empty, show a message
     const emptyCartMessage = createElementWithClass("p", "empty-cart-message");
     emptyCartMessage.textContent = "Your cart is empty.";
     cartItemsContainer.appendChild(emptyCartMessage);
