@@ -9,6 +9,15 @@ const cartItemsContainer = document.getElementById("cart-items-container");
 let cart = [];
 
 /**
+ * Finds the index of a product in the cart by its ID.
+ * @param {number} productId - The ID of the product to find.
+ * @returns {number} - The index of the product in the cart or -1 if not found.
+ */
+const findProductIndexInCart = (productId) => {
+  return cart.findIndex((item) => item.id === productId);
+};
+
+/**
  * Updates the UI to display the current total quantity of items in the cart.
  * It sums up the quantities of **all** items in the cart and updates the text
  * content of the cart quantity span to reflect this total.
@@ -32,9 +41,9 @@ const updateCartCountUI = () => {
  * @returns {void}
  */
 const addToCart = (product) => {
-  const existingProductIdx = cart.findIndex((item) => item.id === product.id);
+  const productIndex = findProductIndexInCart(product.id);
 
-  if (existingProductIdx < 0) {
+  if (productIndex < 0) {
     cart.push({ ...product, qtyInCart: 1 });
   }
 
@@ -53,7 +62,7 @@ const addToCart = (product) => {
  * @returns {void}
  */
 const updateCartQuantity = (productId, newQuantity) => {
-  const productIndex = cart.findIndex((item) => item.id === productId);
+  const productIndex = findProductIndexInCart(productId);
 
   if (productIndex >= 0) {
     cart[productIndex].qtyInCart = newQuantity;
@@ -81,7 +90,7 @@ const toggleCartModal = () => {
 };
 
 // When the user clicks the cart, it should open the modal
-cartBtn.addEventListener("click", toggleCartModal());
+cartBtn.addEventListener("click", toggleCartModal);
 
 // When the user clicks the "X", it should close the modal
 closeModal.addEventListener("click", toggleCartModal);
