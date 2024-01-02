@@ -94,7 +94,7 @@ const updateCartModal = () => {
     cartItemsContainer.appendChild(emptyCartMessage);
   } else {
     cart.forEach((item) => {
-      const { title, image, price, qtyInCart } = item;
+      const { id, title, image, price, qtyInCart } = item;
       const itemContainer = createElementWithClass("div", "cart-item");
 
       const imgContainer = createElementWithClass("div", "cart-img-container");
@@ -138,7 +138,40 @@ const updateCartModal = () => {
       ]);
 
       cartItemsContainer.appendChild(itemContainer);
+
+      decrementBtn.addEventListener("click", () => {
+        updateProductQty(id, false);
+      });
+      incrementBtn.addEventListener("click", () => {
+        updateProductQty(id, true);
+      });
     });
+  }
+};
+
+/**
+ * Adjusts the quantity of a product in the cart and updates the UI
+ * by calling `updateCartCountUI` and `updateCartModal`.
+ * Increments or decrements the product's quantity based on the `isIncrement`.
+ * If decrementing leads to a quantity of zero, it removes the product from the cart.
+ * @param {number} productId - The ID of the product to update.
+ * @param {boolean} isIncrement - True to increment quantity, false to decrement.
+ */
+const updateProductQty = (productId, isIncrement) => {
+  const productIndex = findProductIndexInCart(productId);
+
+  if (productId >= 0) {
+    if (isIncrement) {
+      cart[productIndex].qtyInCart++;
+    } else {
+      if (cart[productIndex].qtyInCart > 1) {
+        cart[productIndex].qtyInCart--;
+      } else {
+        cart.splice(productIndex, 1);
+      }
+    }
+    updateCartCountUI();
+    updateCartModal();
   }
 };
 
