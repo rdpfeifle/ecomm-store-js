@@ -165,6 +165,12 @@ const updateCartModal = () => {
 const updateProductQty = (productId, isIncrement) => {
   const productIndex = findProductIndexInCart(productId);
 
+  const quantityContainer = document.querySelector(".quantity-container");
+  const quantityCounter = document.querySelector(
+    `.qty-counter[data-product-id="${productId}"]`
+  );
+  const addToCartBtn = document.querySelector(".add-to-cart");
+
   if (productId >= 0) {
     if (isIncrement) {
       cart[productIndex].qtyInCart++;
@@ -173,8 +179,17 @@ const updateProductQty = (productId, isIncrement) => {
         cart[productIndex].qtyInCart--;
       } else {
         cart.splice(productIndex, 1);
+        addToCartBtn.style.display = "";
       }
     }
+
+    if (quantityCounter) {
+      // If productIndex is valid, set the textContent to the quantity in cart.
+      quantityCounter.textContent = cart[productIndex]
+        ? cart[productIndex].qtyInCart
+        : (quantityContainer.style.display = "none");
+    }
+
     updateCartCountUI();
     updateCartModal();
   }
@@ -191,5 +206,7 @@ cartBtn.addEventListener("click", toggleCartModal);
 
 // When the user clicks the "X", it should close the modal
 closeModal.addEventListener("click", toggleCartModal);
+
+updateCartModal();
 
 export { addToCart, updateCartQuantity, updateCartModal };
