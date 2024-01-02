@@ -122,6 +122,7 @@ product-title {
 .qty-counter {
   background-color: #fff;
   margin: 0 5px;
+  user-select: none;
 }
 
 @media (max-width: 1200px) {

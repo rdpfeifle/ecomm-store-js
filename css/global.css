@@ -1,6 +1,7 @@
 @import "./products.css";
 @import "./header.css";
 @import "./newsletter.css";
+@import "./cart.css";
 
 * {
   box-sizing: border-box;
@@ -31,11 +32,11 @@ button {
 #promo-bar {
   background-color: #000;
   color: #fff;
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
