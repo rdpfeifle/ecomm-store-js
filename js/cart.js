@@ -1,4 +1,10 @@
+import { createElementWithClass, appendChildren } from "./helpers.js";
+
 const cartQtySpan = document.querySelector(".cart-container span");
+const cartBtn = document.querySelector(".cart-container");
+const cartModal = document.getElementById("cart-modal");
+const closeModal = document.getElementById("close-modal");
+const cartItemsContainer = document.getElementById("cart-items-container");
 
 let cart = [];
 
@@ -60,4 +66,24 @@ const updateCartQuantity = (productId, newQuantity) => {
   }
 };
 
-export { updateCartCountUI, addToCart, updateCartQuantity };
+const removeFromCart = (productId) => {
+  return;
+};
+
+const calculateTotal = () => {
+  return;
+};
+
+const toggleCartModal = () => {
+  cartModal.style.display === "block"
+    ? (cartModal.style.display = "none")
+    : (cartModal.style.display = "block");
+};
+
+// When the user clicks the cart, it should open the modal
+cartBtn.addEventListener("click", toggleCartModal());
+
+// When the user clicks the "X", it should close the modal
+closeModal.addEventListener("click", toggleCartModal);
+
+export { addToCart, updateCartQuantity, updateCartModal };
