@@ -83,6 +83,65 @@ const calculateTotal = () => {
   return;
 };
 
+const updateCartModal = () => {
+  // Clear the current contents of the cart items
+  cartItemsContainer.innerHTML = "";
+
+  if (cart.length === 0) {
+    // If the cart is empty, show a message
+    const emptyCartMessage = createElementWithClass("p", "empty-cart-message");
+    emptyCartMessage.textContent = "Your cart is empty.";
+    cartItemsContainer.appendChild(emptyCartMessage);
+  } else {
+    cart.forEach((item) => {
+      const { title, image, price, qtyInCart } = item;
+      const itemContainer = createElementWithClass("div", "cart-item");
+
+      const imgContainer = createElementWithClass("div", "cart-img-container");
+      const itemImg = createElementWithClass("img", ".cart-item-img");
+      itemImg.src = image;
+      itemImg.alt = title;
+
+      imgContainer.appendChild(itemImg);
+
+      const itemTitle = createElementWithClass("h5", "cart-item-title");
+      itemTitle.textContent = title;
+
+      const itemPrice = createElementWithClass("p", "cart-item-price");
+      itemPrice.textContent = `$${price * qtyInCart}`;
+
+      const itemQtyWrapper = createElementWithClass("div", "item-qty-wrapper");
+      const decrementBtn = createElementWithClass(
+        "button",
+        "item-decrement-btn"
+      );
+      decrementBtn.textContent = "-";
+      const itemQuantity = createElementWithClass("div", "cart-item-qty");
+      itemQuantity.textContent = qtyInCart;
+      const incrementBtn = createElementWithClass(
+        "button",
+        "item-increment-btn"
+      );
+      incrementBtn.textContent = "+";
+
+      appendChildren(itemQtyWrapper, [
+        decrementBtn,
+        itemQuantity,
+        incrementBtn,
+      ]);
+
+      appendChildren(itemContainer, [
+        imgContainer,
+        itemTitle,
+        itemPrice,
+        itemQtyWrapper,
+      ]);
+
+      cartItemsContainer.appendChild(itemContainer);
+    });
+  }
+};
+
 const toggleCartModal = () => {
   cartModal.style.display === "block"
     ? (cartModal.style.display = "none")
