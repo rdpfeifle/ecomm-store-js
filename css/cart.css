@@ -4,7 +4,7 @@
   z-index: 10;
   right: 0;
   top: 0;
-  width: 30%;
+  width: 40%;
   height: 100%;
   overflow: auto;
   background-color: #fff;
@@ -15,7 +15,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 70%;
+  width: 60%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
@@ -35,6 +35,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 /* The Close Button */
@@ -74,7 +75,8 @@
 }
 
 .cart-item-title,
-.empty-cart-message {
+.empty-cart-message,
+#cart-total-container p {
   font-size: 1.125rem;
 }
 
@@ -111,7 +113,43 @@
   font-size: 1.125rem;
 }
 
-@media (max-width: 768px) {
+.cart-divider {
+  border-color: rgba(203, 59, 76, 0.6);
+  margin: 50px 0;
+}
+
+.cart-total,
+.cart-quantity {
+  display: flex;
+  justify-content: space-between;
+}
+
+#cart-total-container p {
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1600px) {
+  .modal {
+    width: 55%;
+  }
+
+  .modal::before {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .modal {
+    width: 65%;
+  }
+
+  .modal::before {
+    width: 35%;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .modal {
     width: 100%;
   }

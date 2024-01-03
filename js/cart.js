@@ -9,6 +9,9 @@ const cartBtn = document.querySelector(".cart-container");
 const cartModal = document.getElementById("cart-modal");
 const closeModal = document.getElementById("close-modal");
 const cartItemsContainer = document.getElementById("cart-items-container");
+const cartTotalContainer = document.getElementById("cart-total-container");
+const totalPriceEl = document.getElementById("total-price");
+const productQuantity = document.getElementById("product-quantity");
 
 let cart = [];
 
@@ -57,10 +60,8 @@ const addToCart = (product) => {
 
 /**
  * Updates the quantity of a specific product in the cart.
- *
  * If the new quantity is greater than zero, it updates the product's quantity.
  * If the new quantity is zero, it removes the product from the cart.
- *
  * After updating, it calls `updateCartCountUI` to refresh the cart count display.
  * @param {number} productId - The ID of the product to update.
  * @param {number} newQuantity - The new quantity to set for the product.
@@ -84,7 +85,32 @@ const removeFromCart = (productId) => {
   return;
 };
 
-const calculateTotal = () => {};
+/**
+ * Calculates and displays the total price and quantity of items in the cart.
+ * The total price is formatted as a currency value in US dollars, and the
+ * total quantity is displayed as a simple count. Updates the respective
+ * elements in the UI with these values.
+ * @returns {void} - This function does not return a value; it updates the
+ * UI directly.
+ */
+const calculateTotal = () => {
+  let totalQuantity = 0;
+
+  const totalPrice = cart.reduce((total, item) => {
+    totalQuantity += item.qtyInCart;
+
+    return total + item.price * item.qtyInCart;
+  }, 0);
+
+  totalPriceEl.textContent = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(totalPrice);
+
+  totalQuantity === 1
+    ? (productQuantity.textContent = `${totalQuantity} product`)
+    : (productQuantity.textContent = `${totalQuantity} products`);
+};
 
 /**
  * This function updates and displays the content of the cart modal.
@@ -110,7 +136,10 @@ const displayCartProducts = () => {
     imgContainer.appendChild(itemImg);
 
     const itemPrice = createElementWithClass("p", "cart-item-price");
-    itemPrice.textContent = `$${price * qtyInCart}`;
+    itemPrice.textContent = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price * qtyInCart);
 
     const itemQtyWrapper = createElementWithClass("div", "item-qty-wrapper");
     const decrementBtn = createButton(
@@ -146,6 +175,8 @@ const displayCartProducts = () => {
 
     cartItemsContainer.appendChild(itemContainer);
 
+    calculateTotal();
+
     decrementBtn.addEventListener("click", () => {
       updateProductQty(id, false);
     });
@@ -166,10 +197,12 @@ const updateCartDisplay = () => {
   cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
+    cartTotalContainer.style.display = "none";
     const emptyCartMessage = createElementWithClass("p", "empty-cart-message");
     emptyCartMessage.textContent = "Your cart is empty.";
     cartItemsContainer.appendChild(emptyCartMessage);
   } else {
+    cartTotalContainer.style.display = "block";
     displayCartProducts();
   }
 };
