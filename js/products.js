@@ -1,6 +1,10 @@
 import { fetchProducts } from "./api.js";
-import { createElementWithClass, appendChildren } from "./helpers.js";
-import { addToCart, updateCartQuantity, updateCartModal } from "./cart.js";
+import {
+  createElementWithClass,
+  appendChildren,
+  createButton,
+} from "./helpers.js";
+import { addToCart, updateCartQuantity, updateCartDisplay } from "./cart.js";
 
 const categoryAll = document.getElementById("all");
 const womenCategory = document.getElementById("women");
@@ -117,15 +121,19 @@ const filterProductsBy = async (category) => {
     quantityContainer.dataset.id = id;
 
     const quantityWrapper = createElementWithClass("div", "quantity-wrapper");
-    const decrementBtn = createElementWithClass("button", "decrement-btn");
-    decrementBtn.textContent = "-";
+    const decrementBtn = createButton(
+      "decrement-btn",
+      "-",
+      "Decrease quantity"
+    );
     const quantityCounter = createElementWithClass("div", "qty-counter");
     quantityCounter.dataset.productId = id;
-    const incrementBtn = createElementWithClass("button", "increment-btn");
-    incrementBtn.textContent = "+";
-
-    const addToCartBtn = createElementWithClass("button", "add-to-cart");
-    addToCartBtn.textContent = "Add to Cart";
+    const incrementBtn = createButton(
+      "increment-btn",
+      "+",
+      "Increase quantity"
+    );
+    const addToCartBtn = createButton("add-to-cart", "Add to Cart");
 
     appendChildren(quantityWrapper, [
       decrementBtn,
@@ -149,7 +157,7 @@ const filterProductsBy = async (category) => {
     addToCartBtn.addEventListener("click", () => {
       addToCart(product);
       toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter);
-      updateCartModal(); // update the modal immediately
+      updateCartDisplay(); // show the modal immediately
     });
 
     incrementBtn.addEventListener("click", () => {
@@ -158,7 +166,7 @@ const filterProductsBy = async (category) => {
 
       // update the cart
       updateCartQuantity(id, newQuantity);
-      updateCartModal();
+      updateCartDisplay();
     });
 
     decrementBtn.addEventListener("click", () => {
@@ -171,7 +179,7 @@ const filterProductsBy = async (category) => {
 
       // update the cart
       updateCartQuantity(id, newQuantity);
-      updateCartModal();
+      updateCartDisplay();
     });
   });
 };

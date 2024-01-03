@@ -1,4 +1,8 @@
-import { createElementWithClass, appendChildren } from "./helpers.js";
+import {
+  createElementWithClass,
+  appendChildren,
+  createButton,
+} from "./helpers.js";
 
 const cartQtySpan = document.querySelector(".cart-container span");
 const cartBtn = document.querySelector(".cart-container");
@@ -80,18 +84,85 @@ const removeFromCart = (productId) => {
   return;
 };
 
-const calculateTotal = () => {
-  return;
+const calculateTotal = () => {};
+
+/**
+ * This function updates and displays the content of the cart modal.
+ * by showing each item with its details.
+ * @returns {void} - primarily updates the UI.
+ */
+const displayCartProducts = () => {
+  cart.forEach((item) => {
+    const { id, title, category, image, price, qtyInCart } = item;
+    const itemContainer = createElementWithClass("div", "cart-item");
+
+    const itemTitle = createElementWithClass("h5", "cart-item-title");
+    itemTitle.textContent = title;
+
+    const itemCategory = createElementWithClass("p", "cart-item-category");
+    itemCategory.textContent = category === "jewelery" ? "jewelry" : category;
+
+    const imgContainer = createElementWithClass("div", "cart-img-container");
+    const itemImg = createElementWithClass("img", "cart-item-img");
+    itemImg.src = image;
+    itemImg.alt = title;
+
+    imgContainer.appendChild(itemImg);
+
+    const itemPrice = createElementWithClass("p", "cart-item-price");
+    itemPrice.textContent = `$${price * qtyInCart}`;
+
+    const itemQtyWrapper = createElementWithClass("div", "item-qty-wrapper");
+    const decrementBtn = createButton(
+      "item-decrement-btn",
+      "-",
+      "Decrease quantity"
+    );
+
+    const itemQuantity = createElementWithClass("div", "cart-item-qty");
+    itemQuantity.textContent = qtyInCart;
+
+    const incrementBtn = createButton(
+      "item-increment-btn",
+      "+",
+      "Increase quantity"
+    );
+
+    const itemDetailsContainer = createElementWithClass(
+      "div",
+      "item-details-container"
+    );
+
+    appendChildren(itemQtyWrapper, [decrementBtn, itemQuantity, incrementBtn]);
+
+    appendChildren(itemDetailsContainer, [
+      itemTitle,
+      itemCategory,
+      itemPrice,
+      itemQtyWrapper,
+    ]);
+
+    appendChildren(itemContainer, [imgContainer, itemDetailsContainer]);
+
+    cartItemsContainer.appendChild(itemContainer);
+
+    decrementBtn.addEventListener("click", () => {
+      updateProductQty(id, false);
+    });
+    incrementBtn.addEventListener("click", () => {
+      updateProductQty(id, true);
+    });
+  });
 };
 
 /**
- * Updates and displays the content of the cart modal.
- * Clears existing content and populates with current cart items.
- * Shows each item with its details.
- * Displays a message if the cart is empty.
- * @returns {void} - primarily updates the UI.
+ * Checks if the cart is empty and updates the UI accordingly.
+ * If the cart is empty, it displays a message indicating this.
+ * Otherwise, it calls the function `displayCartProducts` to
+ * display the cart products.
+ * @returns {void} - Updates the UI based on the cart's content.
  */
-const updateCartModal = () => {
+const updateCartDisplay = () => {
   cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
@@ -99,75 +170,13 @@ const updateCartModal = () => {
     emptyCartMessage.textContent = "Your cart is empty.";
     cartItemsContainer.appendChild(emptyCartMessage);
   } else {
-    cart.forEach((item) => {
-      const { id, title, category, image, price, qtyInCart } = item;
-      const itemContainer = createElementWithClass("div", "cart-item");
-
-      const itemTitle = createElementWithClass("h5", "cart-item-title");
-      itemTitle.textContent = title;
-
-      const itemCategory = createElementWithClass("p", "cart-item-category");
-      itemCategory.textContent = category === "jewelery" ? "jewelry" : category;
-
-      const imgContainer = createElementWithClass("div", "cart-img-container");
-      const itemImg = createElementWithClass("img", "cart-item-img");
-      itemImg.src = image;
-      itemImg.alt = title;
-
-      imgContainer.appendChild(itemImg);
-
-      const itemPrice = createElementWithClass("p", "cart-item-price");
-      itemPrice.textContent = `$${price * qtyInCart}`;
-
-      const itemQtyWrapper = createElementWithClass("div", "item-qty-wrapper");
-      const decrementBtn = createElementWithClass(
-        "button",
-        "item-decrement-btn"
-      );
-      decrementBtn.textContent = "-";
-      const itemQuantity = createElementWithClass("div", "cart-item-qty");
-      itemQuantity.textContent = qtyInCart;
-      const incrementBtn = createElementWithClass(
-        "button",
-        "item-increment-btn"
-      );
-      incrementBtn.textContent = "+";
-
-      const itemDetailsContainer = createElementWithClass(
-        "div",
-        "item-details-container"
-      );
-
-      appendChildren(itemQtyWrapper, [
-        decrementBtn,
-        itemQuantity,
-        incrementBtn,
-      ]);
-
-      appendChildren(itemDetailsContainer, [
-        itemTitle,
-        itemCategory,
-        itemPrice,
-        itemQtyWrapper,
-      ]);
-
-      appendChildren(itemContainer, [imgContainer, itemDetailsContainer]);
-
-      cartItemsContainer.appendChild(itemContainer);
-
-      decrementBtn.addEventListener("click", () => {
-        updateProductQty(id, false);
-      });
-      incrementBtn.addEventListener("click", () => {
-        updateProductQty(id, true);
-      });
-    });
+    displayCartProducts();
   }
 };
 
 /**
  * Adjusts the quantity of a product in the cart and updates the UI
- * by calling `updateCartCountUI` and `updateCartModal`.
+ * by calling `updateCartCountUI` and `displayCartProducts`.
  * Increments or decrements the product's quantity based on the `isIncrement`.
  * If decrementing leads to a quantity of zero, it removes the product from the cart.
  * @param {number} productId - The ID of the product to update.
@@ -183,7 +192,6 @@ const updateProductQty = (productId, isIncrement) => {
     `.qty-counter[data-product-id="${productId}"]`
   );
 
-  // Update the query selector to use data-id instead of data-product-id.
   const productContainer = document.querySelector(`[data-id="${productId}"]`);
   const addToCartBtn = productContainer.querySelector(".add-to-cart");
 
@@ -196,8 +204,6 @@ const updateProductQty = (productId, isIncrement) => {
       } else {
         cart.splice(productIndex, 1);
         quantityContainer.style.display = "none";
-
-        // Update the addToCartBtn within the product item scope.
         addToCartBtn.style.display = "block";
       }
     }
@@ -210,7 +216,7 @@ const updateProductQty = (productId, isIncrement) => {
     }
 
     updateCartCountUI();
-    updateCartModal();
+    updateCartDisplay();
   }
 };
 
@@ -226,6 +232,6 @@ cartBtn.addEventListener("click", toggleCartModal);
 // When the user clicks the "X", it should close the modal
 closeModal.addEventListener("click", toggleCartModal);
 
-updateCartModal();
+updateCartDisplay();
 
-export { addToCart, updateCartQuantity, updateCartModal };
+export { addToCart, updateCartQuantity, updateCartDisplay };
