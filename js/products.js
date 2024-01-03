@@ -114,6 +114,8 @@ const filterProductsBy = async (category) => {
       "div",
       "quantity-container"
     );
+    quantityContainer.dataset.id = id;
+
     const quantityWrapper = createElementWithClass("div", "quantity-wrapper");
     const decrementBtn = createElementWithClass("button", "decrement-btn");
     decrementBtn.textContent = "-";

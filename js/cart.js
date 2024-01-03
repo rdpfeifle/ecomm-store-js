@@ -176,11 +176,16 @@ const updateCartModal = () => {
 const updateProductQty = (productId, isIncrement) => {
   const productIndex = findProductIndexInCart(productId);
 
-  const quantityContainer = document.querySelector(".quantity-container");
+  const quantityContainer = document.querySelector(
+    `.quantity-container[data-id="${productId}"]`
+  );
   const quantityCounter = document.querySelector(
     `.qty-counter[data-product-id="${productId}"]`
   );
-  const addToCartBtn = document.querySelector(".add-to-cart");
+
+  // Update the query selector to use data-id instead of data-product-id.
+  const productContainer = document.querySelector(`[data-id="${productId}"]`);
+  const addToCartBtn = productContainer.querySelector(".add-to-cart");
 
   if (productId >= 0) {
     if (isIncrement) {
@@ -191,6 +196,8 @@ const updateProductQty = (productId, isIncrement) => {
       } else {
         cart.splice(productIndex, 1);
         quantityContainer.style.display = "none";
+
+        // Update the addToCartBtn within the product item scope.
         addToCartBtn.style.display = "block";
       }
     }
