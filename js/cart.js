@@ -184,13 +184,14 @@ const updateProductQty = (productId, isIncrement) => {
 
   if (productId >= 0) {
     if (isIncrement) {
-      cart[productIndex].qtyInCart++;
+      cart[productIndex].qtyInCart += 1;
     } else {
       if (cart[productIndex].qtyInCart > 1) {
-        cart[productIndex].qtyInCart--;
+        cart[productIndex].qtyInCart -= 1;
       } else {
         cart.splice(productIndex, 1);
-        addToCartBtn.style.display = "";
+        quantityContainer.style.display = "none";
+        addToCartBtn.style.display = "block";
       }
     }
 
@@ -198,7 +199,7 @@ const updateProductQty = (productId, isIncrement) => {
       // If productIndex is valid, set the textContent to the quantity in cart.
       quantityCounter.textContent = cart[productIndex]
         ? cart[productIndex].qtyInCart
-        : (quantityContainer.style.display = "none");
+        : "";
     }
 
     updateCartCountUI();
