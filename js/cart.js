@@ -80,18 +80,18 @@ const removeFromCart = (productId) => {
   return;
 };
 
-const calculateTotal = () => {
-  return;
-};
+// create a function to check the cart length
+
+const calculateTotal = () => {};
 
 /**
- * Updates and displays the content of the cart modal.
+ * This function updates and displays the content of the cart modal.
  * Clears existing content and populates with current cart items.
  * Shows each item with its details.
  * Displays a message if the cart is empty.
  * @returns {void} - primarily updates the UI.
  */
-const updateCartModal = () => {
+const showCartProducts = () => {
   cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
@@ -167,7 +167,7 @@ const updateCartModal = () => {
 
 /**
  * Adjusts the quantity of a product in the cart and updates the UI
- * by calling `updateCartCountUI` and `updateCartModal`.
+ * by calling `updateCartCountUI` and `showCartProducts`.
  * Increments or decrements the product's quantity based on the `isIncrement`.
  * If decrementing leads to a quantity of zero, it removes the product from the cart.
  * @param {number} productId - The ID of the product to update.
@@ -183,7 +183,6 @@ const updateProductQty = (productId, isIncrement) => {
     `.qty-counter[data-product-id="${productId}"]`
   );
 
-  // Update the query selector to use data-id instead of data-product-id.
   const productContainer = document.querySelector(`[data-id="${productId}"]`);
   const addToCartBtn = productContainer.querySelector(".add-to-cart");
 
@@ -196,8 +195,6 @@ const updateProductQty = (productId, isIncrement) => {
       } else {
         cart.splice(productIndex, 1);
         quantityContainer.style.display = "none";
-
-        // Update the addToCartBtn within the product item scope.
         addToCartBtn.style.display = "block";
       }
     }
@@ -210,7 +207,7 @@ const updateProductQty = (productId, isIncrement) => {
     }
 
     updateCartCountUI();
-    updateCartModal();
+    showCartProducts();
   }
 };
 
@@ -226,6 +223,6 @@ cartBtn.addEventListener("click", toggleCartModal);
 // When the user clicks the "X", it should close the modal
 closeModal.addEventListener("click", toggleCartModal);
 
-updateCartModal();
+showCartProducts();
 
-export { addToCart, updateCartQuantity, updateCartModal };
+export { addToCart, updateCartQuantity, showCartProducts };

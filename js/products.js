@@ -1,6 +1,6 @@
 import { fetchProducts } from "./api.js";
 import { createElementWithClass, appendChildren } from "./helpers.js";
-import { addToCart, updateCartQuantity, updateCartModal } from "./cart.js";
+import { addToCart, updateCartQuantity, showCartProducts } from "./cart.js";
 
 const categoryAll = document.getElementById("all");
 const womenCategory = document.getElementById("women");
@@ -149,7 +149,7 @@ const filterProductsBy = async (category) => {
     addToCartBtn.addEventListener("click", () => {
       addToCart(product);
       toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter);
-      updateCartModal(); // update the modal immediately
+      showCartProducts(); // show the modal immediately
     });
 
     incrementBtn.addEventListener("click", () => {
@@ -158,7 +158,7 @@ const filterProductsBy = async (category) => {
 
       // update the cart
       updateCartQuantity(id, newQuantity);
-      updateCartModal();
+      showCartProducts();
     });
 
     decrementBtn.addEventListener("click", () => {
@@ -171,7 +171,7 @@ const filterProductsBy = async (category) => {
 
       // update the cart
       updateCartQuantity(id, newQuantity);
-      updateCartModal();
+      showCartProducts();
     });
   });
 };
