@@ -4,7 +4,7 @@ import {
   appendChildren,
   createButton,
 } from "./helpers.js";
-import { addToCart, updateCartQuantity, showCartProducts } from "./cart.js";
+import { addToCart, updateCartQuantity, updateCartDisplay } from "./cart.js";
 
 const categoryAll = document.getElementById("all");
 const womenCategory = document.getElementById("women");
@@ -157,7 +157,7 @@ const filterProductsBy = async (category) => {
     addToCartBtn.addEventListener("click", () => {
       addToCart(product);
       toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter);
-      showCartProducts(); // show the modal immediately
+      updateCartDisplay(); // show the modal immediately
     });
 
     incrementBtn.addEventListener("click", () => {
@@ -166,7 +166,7 @@ const filterProductsBy = async (category) => {
 
       // update the cart
       updateCartQuantity(id, newQuantity);
-      showCartProducts();
+      updateCartDisplay();
     });
 
     decrementBtn.addEventListener("click", () => {
@@ -179,7 +179,7 @@ const filterProductsBy = async (category) => {
 
       // update the cart
       updateCartQuantity(id, newQuantity);
-      showCartProducts();
+      updateCartDisplay();
     });
   });
 };
