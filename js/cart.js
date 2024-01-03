@@ -1,4 +1,8 @@
-import { createElementWithClass, appendChildren } from "./helpers.js";
+import {
+  createElementWithClass,
+  appendChildren,
+  createButton,
+} from "./helpers.js";
 
 const cartQtySpan = document.querySelector(".cart-container span");
 const cartBtn = document.querySelector(".cart-container");
@@ -120,18 +124,20 @@ const showCartProducts = () => {
       itemPrice.textContent = `$${price * qtyInCart}`;
 
       const itemQtyWrapper = createElementWithClass("div", "item-qty-wrapper");
-      const decrementBtn = createElementWithClass(
-        "button",
-        "item-decrement-btn"
+      const decrementBtn = createButton(
+        "item-decrement-btn",
+        "-",
+        "Decrease quantity"
       );
-      decrementBtn.textContent = "-";
+
       const itemQuantity = createElementWithClass("div", "cart-item-qty");
       itemQuantity.textContent = qtyInCart;
-      const incrementBtn = createElementWithClass(
-        "button",
-        "item-increment-btn"
+
+      const incrementBtn = createButton(
+        "item-increment-btn",
+        "+",
+        "Increase quantity"
       );
-      incrementBtn.textContent = "+";
 
       const itemDetailsContainer = createElementWithClass(
         "div",

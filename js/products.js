@@ -1,5 +1,9 @@
 import { fetchProducts } from "./api.js";
-import { createElementWithClass, appendChildren } from "./helpers.js";
+import {
+  createElementWithClass,
+  appendChildren,
+  createButton,
+} from "./helpers.js";
 import { addToCart, updateCartQuantity, showCartProducts } from "./cart.js";
 
 const categoryAll = document.getElementById("all");
@@ -117,15 +121,19 @@ const filterProductsBy = async (category) => {
     quantityContainer.dataset.id = id;
 
     const quantityWrapper = createElementWithClass("div", "quantity-wrapper");
-    const decrementBtn = createElementWithClass("button", "decrement-btn");
-    decrementBtn.textContent = "-";
+    const decrementBtn = createButton(
+      "decrement-btn",
+      "-",
+      "Decrease quantity"
+    );
     const quantityCounter = createElementWithClass("div", "qty-counter");
     quantityCounter.dataset.productId = id;
-    const incrementBtn = createElementWithClass("button", "increment-btn");
-    incrementBtn.textContent = "+";
-
-    const addToCartBtn = createElementWithClass("button", "add-to-cart");
-    addToCartBtn.textContent = "Add to Cart";
+    const incrementBtn = createButton(
+      "increment-btn",
+      "+",
+      "Increase quantity"
+    );
+    const addToCartBtn = createButton("add-to-cart", "Add to Cart");
 
     appendChildren(quantityWrapper, [
       decrementBtn,
