@@ -107,7 +107,9 @@ const calculateTotal = () => {
     currency: "USD",
   }).format(totalPrice);
 
-  productQuantity.textContent = totalQuantity;
+  totalQuantity === 1
+    ? (productQuantity.textContent = `${totalQuantity} product`)
+    : (productQuantity.textContent = `${totalQuantity} products`);
 };
 
 /**
