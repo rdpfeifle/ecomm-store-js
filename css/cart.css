@@ -124,8 +124,12 @@
   justify-content: space-between;
 }
 
+.total-title,
+.quantity-title {
+  font-weight: 600;
+}
+
 #cart-total-container p {
-  font-weight: 500;
   margin-bottom: 20px;
 }
 
