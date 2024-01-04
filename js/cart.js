@@ -9,11 +9,21 @@ const cartBtn = document.querySelector(".cart-container");
 const cartModal = document.getElementById("cart-modal");
 const closeModal = document.getElementById("close-modal");
 const cartItemsContainer = document.getElementById("cart-items-container");
+const cartDivider = document.querySelector(".cart-divider");
 const cartTotalContainer = document.getElementById("cart-total-container");
 const totalPriceEl = document.getElementById("total-price");
 const productQuantity = document.getElementById("product-quantity");
 
 let cart = [];
+
+const saveCartToLocalStorage = () => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+};
+
+const getCartFromLocalStorage = () => {
+  const storedCart = localStorage.getItem("cart");
+  return storedCart ? JSON.parse(storedCart) : [];
+};
 
 /**
  * Finds the index of a product in the cart by its ID.
@@ -32,29 +42,26 @@ const findProductIndexInCart = (productId) => {
  */
 const updateCartCountUI = () => {
   const totalItems = cart.reduce((total, item) => total + item.qtyInCart, 0);
+  console.log("Total items in cart: ", totalItems);
   cartQtySpan.textContent = `(${totalItems})`;
 };
 
 /**
- * This function is used for the initial addition of a product to the cart.
- * After adding the product, it updates the UI to reflect the current
- * total quantity of items in the cart by calling `updateCartCountUI`.
- *
- * If the product is **already** in the cart, the function
- * DOESN'T modify the existing quantity (`updateCartQuantity` does that).
- * @param {Object} product - The product object to add to the cart.
- * This object should contain at least the product's ID, and may include
- * other details such as `title` and `price`.
+ * Adds a product to the cart, or increments its quantity if it already exists.
+ * Updates the cart's state in local storage and refreshes the cart item count UI.
+ * @param {Object} product - The product to be added or updated.
  * @returns {void}
  */
-
 const addToCart = (product) => {
   const productIndex = findProductIndexInCart(product.id);
 
   if (productIndex < 0) {
     cart.push({ ...product, qtyInCart: 1 });
+  } else {
+    cart[productIndex].qtyInCart += 1;
   }
 
+  saveCartToLocalStorage();
   updateCartCountUI();
 };
 
@@ -77,6 +84,7 @@ const updateCartQuantity = (productId, newQuantity) => {
       cart.splice(productIndex, 1);
     }
 
+    saveCartToLocalStorage();
     updateCartCountUI();
   }
 };
@@ -178,10 +186,14 @@ const displayCartProducts = () => {
     calculateTotal();
 
     decrementBtn.addEventListener("click", () => {
+      console.log("Decrement button clicked from cart.js");
       updateProductQty(id, false);
+      saveCartToLocalStorage();
     });
     incrementBtn.addEventListener("click", () => {
+      console.log("Increment button clicked from cart.js");
       updateProductQty(id, true);
+      saveCartToLocalStorage();
     });
   });
 };
@@ -198,11 +210,13 @@ const updateCartDisplay = () => {
 
   if (cart.length === 0) {
     cartTotalContainer.style.display = "none";
+    cartDivider.style.display = "none";
     const emptyCartMessage = createElementWithClass("p", "empty-cart-message");
     emptyCartMessage.textContent = "Your cart is empty.";
     cartItemsContainer.appendChild(emptyCartMessage);
   } else {
     cartTotalContainer.style.display = "block";
+    cartDivider.style.display = "block";
     displayCartProducts();
   }
 };
@@ -265,6 +279,8 @@ cartBtn.addEventListener("click", toggleCartModal);
 // When the user clicks the "X", it should close the modal
 closeModal.addEventListener("click", toggleCartModal);
 
+cart = getCartFromLocalStorage();
 updateCartDisplay();
+updateCartCountUI();
 
 export { addToCart, updateCartQuantity, updateCartDisplay };

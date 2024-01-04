@@ -158,6 +158,8 @@ const filterProductsBy = async (category) => {
       addToCart(product);
       toggleQuantityDisplay(addToCartBtn, quantityContainer, quantityCounter);
       updateCartDisplay(); // show the modal immediately
+
+      console.log("Add to cart button clicked from products.js");
     });
 
     incrementBtn.addEventListener("click", () => {
@@ -167,6 +169,8 @@ const filterProductsBy = async (category) => {
       // update the cart
       updateCartQuantity(id, newQuantity);
       updateCartDisplay();
+
+      console.log("Increment button clicked from products.js");
     });
 
     decrementBtn.addEventListener("click", () => {
@@ -180,6 +184,8 @@ const filterProductsBy = async (category) => {
       // update the cart
       updateCartQuantity(id, newQuantity);
       updateCartDisplay();
+
+      console.log("Decrement button clicked from products.js");
     });
   });
 };
