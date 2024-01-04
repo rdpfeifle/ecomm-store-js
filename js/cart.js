@@ -16,10 +16,20 @@ const productQuantity = document.getElementById("product-quantity");
 
 let cart = [];
 
+/**
+ * Saves the current state of the cart to localStorage for data persistence.
+ * @returns {void}
+ */
 const saveCartToLocalStorage = () => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
+/**
+ * Retrieves the cart data from localStorage to maintain state persistence
+ * across sessions.
+ * @returns {Array} The array of cart items if available in localStorage,
+ * otherwise an empty array.
+ */
 const getCartFromLocalStorage = () => {
   const storedCart = localStorage.getItem("cart");
   return storedCart ? JSON.parse(storedCart) : [];
