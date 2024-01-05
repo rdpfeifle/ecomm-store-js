@@ -54,4 +54,21 @@ describe("fetchProducts function", () => {
       );
     });
   });
+
+  it("should return 'price' property with a type of number and be at least one dollar", () => {
+    const randomIndex = Math.floor(Math.random() * products.length);
+    const randomProduct = products[randomIndex];
+
+    // Check that the 'price' property has a data type of number
+    expect(
+      randomProduct.price,
+      `Product at index ${randomIndex} should have a 'price' property of type number`
+    ).to.be.a("number");
+
+    // Check that the 'price' property is >= $1
+    expect(
+      randomProduct.price,
+      `Product should cost more than $1 dollar`
+    ).to.be.greaterThan(1);
+  });
 });
