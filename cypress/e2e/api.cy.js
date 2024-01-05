@@ -30,4 +30,17 @@ describe("fetchProducts function", () => {
       "All products should be in the specified categories"
     ).to.be.true;
   });
+
+  it("should return an empty array when no products match the filter", () => {
+    const nonMatchingProducts = products.filter(
+      (product) =>
+        product.category !== "jewelery" &&
+        product.category !== "women's clothing"
+    );
+
+    expect(
+      nonMatchingProducts.length,
+      "The length of the array should be 0 when no products match"
+    ).to.equal(0);
+  });
 });
