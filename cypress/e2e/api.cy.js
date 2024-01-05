@@ -43,4 +43,15 @@ describe("fetchProducts function", () => {
       "The length of the array should be 0 when no products match"
     ).to.equal(0);
   });
+
+  it("should return an array of objects", () => {
+    expect(Array.isArray(products), "The result should be an array").to.be.true;
+
+    // Check if each product is an object
+    products.forEach((product, index) => {
+      expect(product, `Product at index ${index} should be an object`).to.be.an(
+        "object"
+      );
+    });
+  });
 });
