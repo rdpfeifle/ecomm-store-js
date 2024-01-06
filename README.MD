@@ -4,8 +4,10 @@ Urban Grace is a one-page e-commerce website created as a personal challenge, bu
 
 ## Technologies Used
 
-- HTML5, CSS3, Vanilla JavaScript
-- API: Fake Store API
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Fake Store API
 
 ## Cool things I've done with it
 
