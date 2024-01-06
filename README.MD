@@ -9,10 +9,10 @@ Urban Grace is a one-page e-commerce website created as a personal challenge, bu
 
 ## Cool things I've done with it
 
-✅ Established a project board on GitHub, viewable [here](https://github.com/users/rdpfeifle/projects/6)
-✅ Created different issues for different functionalities/bugs, which can be seen [here](https://github.com/rdpfeifle/ecomm-store-js/issues).
-✅ Created separate branches and pull requests for each feature and fix. Check them out [here](https://github.com/rdpfeifle/ecomm-store-js/pulls).
-✅ Implemented a CI/CD pipeline for E2E Cypress tests via GitHub Actions, accessible [here](https://github.com/rdpfeifle/ecomm-store-js/actions).
+✅ Established a project board on GitHub, viewable [here](https://github.com/users/rdpfeifle/projects/6).  
+✅ Created different issues for different functionalities/bugs, which can be seen [here](https://github.com/rdpfeifle/ecomm-store-js/issues).  
+✅ Created separate branches and pull requests for each feature and fix. Check them out [here](https://github.com/rdpfeifle/ecomm-store-js/pulls).  
+✅ Implemented a CI/CD pipeline for E2E Cypress tests via GitHub Actions, accessible [here](https://github.com/rdpfeifle/ecomm-store-js/actions).  
 ✅ Deployed on Netlify, live version available [here](https://vanilla-js-store-f62b9a.netlify.app).
 
 ## Current features
