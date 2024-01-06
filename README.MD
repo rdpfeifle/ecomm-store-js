@@ -59,3 +59,7 @@ npm start
 ```
 
 Then, access the app in your browser at `http://127.0.0.1:8080`.
+
+## License
+
+This project is licensed under the MIT License.
