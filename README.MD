@@ -43,7 +43,7 @@ git clone https://github.com/rdpfeifle/ecomm-store-js
 cd ecomm-store-js ; code .
 ```
 
-1. Install dependencies for the project:
+3. Install dependencies for the project:
 
 ```
 npm install
