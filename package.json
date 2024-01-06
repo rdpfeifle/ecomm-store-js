@@ -4,11 +4,15 @@
   "description": "An e-commerce created using HTML, CSS, and Vanilla JS",
   "main": "index.js",
   "scripts": {
+    "start": "http-server",
     "cy:open": "cypress open"
   },
   "author": "Raquel Pfeifle",
   "license": "MIT",
   "devDependencies": {
     "cypress": "^13.6.2"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
   }
 }
