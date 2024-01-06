@@ -125,19 +125,19 @@ product-title {
   user-select: none;
 }
 
-@media (max-width: 1200px) {
+@media screen and (max-width: 1440px) {
   #products-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   #products-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   #products-container {
     grid-template-columns: repeat(1, 1fr);
   }
