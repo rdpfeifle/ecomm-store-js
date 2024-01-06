@@ -22,6 +22,8 @@ Urban Grace is a one-page e-commerce website created as a personal challenge, bu
 
 ## Current features
 
+- Adds/deletes products from the cart.
+- Filters the products by categories.
 - Responsive design using CSS grid and flexbox.
 - Shopping cart functionality as a responsive modal.
 - `localStorage` integration for cart persistency.
