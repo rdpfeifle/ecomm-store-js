@@ -8,6 +8,7 @@ Urban Grace is a one-page e-commerce website created as a personal challenge, bu
 - CSS3
 - Vanilla JavaScript
 - Fake Store API
+- Cypress for end-to-end tests
 
 ## Cool things I've done with it
 
