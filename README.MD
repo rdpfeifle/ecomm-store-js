@@ -2,6 +2,8 @@
 
 Urban Grace is a one-page e-commerce website created as a personal challenge, built from scratch without using frameworks or libraries. Future enhancements may include incorporating frameworks or libraries as needed.
 
+![Urban Grace store - mockup]("./../images/urbanGrace-store-mockup.png")
+
 ## Technologies Used
 
 - HTML5
