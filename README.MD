@@ -31,25 +31,25 @@ Urban Grace is a one-page e-commerce website created as a personal challenge, bu
 
 ## Instructions
 
-1. Clone the repo:
+**1. Clone the repo:**
 
 ```
 git clone https://github.com/rdpfeifle/ecomm-store-js
 ```
 
-2. Navigate to the project directory and open it in your preferred IDE.
+**2. Navigate to the project directory and open it in your preferred IDE.**
 
 ```
 cd ecomm-store-js ; code .
 ```
 
-3. Install dependencies for the project:
+**3. Install dependencies for the project:**
 
 ```
 npm install
 ```
 
-4. Start the app by running the following command. This will launch a local server:
+**4. Start the app by running the following command. This will launch a local server:**
 
 ```
 npm start
