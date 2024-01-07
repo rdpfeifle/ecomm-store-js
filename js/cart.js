@@ -104,6 +104,18 @@ const removeFromCart = (productId) => {
 };
 
 /**
+ * Formats a numeric price as USD currency.
+ * @param {number} price - The numeric price to be formatted.
+ * @returns {string} The formatted price in USD currency format.
+ */
+const formatPriceAsUSD = (price) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(price);
+};
+
+/**
  * Calculates and displays the total price and quantity of items in the cart.
  * The total price is formatted as a currency value in US dollars, and the
  * total quantity is displayed as a simple count. Updates the respective
@@ -120,10 +132,7 @@ const calculateTotal = () => {
     return total + item.price * item.qtyInCart;
   }, 0);
 
-  totalPriceEl.textContent = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(totalPrice);
+  totalPriceEl.textContent = formatPriceAsUSD(totalPrice);
 
   totalQuantity === 1
     ? (productQuantity.textContent = `${totalQuantity} product`)
@@ -154,10 +163,7 @@ const displayCartProducts = () => {
     imgContainer.appendChild(itemImg);
 
     const itemPrice = createElementWithClass("p", "cart-item-price");
-    itemPrice.textContent = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(price * qtyInCart);
+    itemPrice.textContent = formatPriceAsUSD(price * qtyInCart);
 
     const itemQtyWrapper = createElementWithClass("div", "item-qty-wrapper");
     const decrementBtn = createButton(
