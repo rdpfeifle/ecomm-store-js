@@ -30,9 +30,10 @@ Urban Grace is a one-page e-commerce website created as a personal challenge, bu
 
 ## Future (possible) changes
 
+- Allow users to click anywhere outside the cart to close it.
+- Generates alerts for successful actions, failures, and other events.
 - Addition of a `product details` page
 - Create a `checkout` page
-- Allow users to click anywhere outside the cart to close it.
 
 ## Instructions
 
