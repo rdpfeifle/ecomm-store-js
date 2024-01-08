@@ -3,7 +3,7 @@ describe("Homepage functionality and products visibility", () => {
     cy.visit("../../index.html");
   });
 
-  it("should correctly display the application's title", () => {
+  it("should have 'Urban Grace' as the page title", () => {
     cy.title().should("equal", "Urban Grace");
   });
 
@@ -22,10 +22,4 @@ describe("Homepage functionality and products visibility", () => {
       cy.wrap($product).find(".add-to-cart").should("be.visible");
     });
   });
-
-  // should show the - [qty] + when clicking the 'Add to Cart'
-  // the "add to cart" button should be invisible after clicking on it
-  // should update UI state when 'Add to Cart' is clicked
-  // should update product quantity in UI when modified
-  // should allow to open the cart when clicking the cart button
 });
